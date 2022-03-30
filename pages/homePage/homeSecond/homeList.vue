@@ -1,5 +1,7 @@
 <template>
 	<view class="home">
+
+
 		<view class="home_tabber"
 			:style="{ width: $store.state.phoneInfo.playerWidth+'px',height:$store.state.phoneInfo.BarHeight }">
 			<view
@@ -8,10 +10,8 @@
 			<view class="home_tabber_down"
 				:style="{ width: $store.state.phoneInfo.playerWidth+'px',height: $store.state.phoneInfo.BarHeightDown+'px' }">
 
-				<view class="tabber_down_checken">
-					<uni-data-picker style="height: 24rpx;" v-model="classes" :localdata="items" @change="onchange"
-						@nodeclick="onnodeclick">
-					</uni-data-picker>
+				<view class="tabber_down_img" @click="goback">
+					<image class="down_img_size" src="../../../static/img/public/001.svg"></image>
 				</view>
 				<scroll-view :style="{height: $store.state.phoneInfo.BarHeightDown+'px' }" ref="tabbar1" id="tab-bar"
 					class="tab-bar" :scroll="false" :scroll-x="true" :show-scrollbar="false"
@@ -19,9 +19,9 @@
 					<view class="tabber_down_con" :style="{ marginLeft:bothLeft +'rpx'}">
 						<view class="down_con_box">
 							<view class="con_box_add" v-for="(tab,indextab) in tabList" :key="indextab">
-								<view class="box_add_num" :style="{ left: boxnumleft+'px'}">
+								<!-- 	<view class="box_add_num" :style="{ left: boxnumleft+'px'}">
 									{{tab.num}}
-								</view>
+								</view> -->
 								<text :style="{ margin:bothsides }" :class="[indextab==tabIndex?'con_active_color':'']"
 									@click="getitemTab(indextab)" :id="`ctsbox${indextab}`"
 									class="con_box_text">{{tab.name}}</text>
@@ -36,7 +36,7 @@
 
 			</view>
 		</view>
-
+<image class="home_position_img" src="@/static/img/public/002.png"></image>
 
 		<publicContent>
 			<swiper :style="{height:$store.state.phoneInfo.publicCon+'px'}" class="tab-view" ref="swiper1"
@@ -44,37 +44,69 @@
 				<swiper-item class="swiper-item ">
 					<scroll-view :style="{height:$store.state.phoneInfo.publicCon+'px'}" scroll-y="true"
 						class="scroll-Y">
-						<homeContent></homeContent>
+						<rectification></rectification>
 					</scroll-view>
 				</swiper-item>
+				<swiper-item class="swiper-item ">
+					<scroll-view :style="{height:$store.state.phoneInfo.publicCon+'px'}" scroll-y="true"
+						class="scroll-Y">
+						<recordSheet></recordSheet>
+					</scroll-view>
+				</swiper-item>
+				<swiper-item class="swiper-item ">
+					<scroll-view :style="{height:$store.state.phoneInfo.publicCon+'px'}" scroll-y="true"
+						class="scroll-Y">
+						<recordSheet></recordSheet>
+					</scroll-view>
+				</swiper-item>
+				<swiper-item class="swiper-item ">
+					<scroll-view :style="{height:$store.state.phoneInfo.publicCon+'px'}" scroll-y="true"
+						class="scroll-Y">
+						<recordSheet></recordSheet>
+					</scroll-view>
+				</swiper-item>
+				<swiper-item class="swiper-item ">
+					<scroll-view :style="{height:$store.state.phoneInfo.publicCon+'px'}" scroll-y="true"
+						class="scroll-Y">
+						<recordSheet></recordSheet>
+					</scroll-view>
+				</swiper-item>
+
 			</swiper>
 			<SecurityBox></SecurityBox>
 		</publicContent>
+		
 	</view>
 </template>
 
 <script>
 	import SecurityBox from '@/components/public/SecurityBox.vue'
 	import publicContent from '@/components/public/publicContent.vue'
-	import homeContent from '@/components/homePage/homeContent.vue'
+	import recordSheet from '@/components/homePage/homesecond/recordSheet.vue'
+	import rectification from '@/components/homePage/homesecond/rectification.vue'
 	export default {
 		data() {
 			return {
 
+
 				tabList: [{
-						name: "审批通知",
+						name: "审查记录表",
 						num: 8
 					},
 					{
-						name: "消息通知",
+						name: "基本信息",
 						num: 6
 					},
 					{
-						name: "日程列表",
+						name: "材料列表",
 						num: 3
 					},
 					{
-						name: "日程列表",
+						name: "审查意见",
+						num: 3
+					},
+					{
+						name: "整改单",
 						num: 3
 					},
 				],
@@ -98,14 +130,15 @@
 					}
 				],
 				// addlist
-				bothsides: '0 33rpx',
-				bothLeft: 123
+				bothsides: '0 12rpx',
+				bothLeft: 34
 			}
 		},
 		components: {
 			SecurityBox,
 			publicContent,
-			homeContent
+			recordSheet,
+			rectification
 
 		},
 		onLoad() {
@@ -115,6 +148,13 @@
 
 		},
 		methods: {
+			goback() {
+				uni.navigateBack({
+					delta: 1,
+					animationType: 'pop-out',
+					animationDuration: 200
+				})
+			},
 			onswiperchange(e) {
 				// console.log('onswiperchangee', e)
 				this.getitemTab(e.detail.current)
@@ -156,8 +196,19 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.home {
+		position: relative;
+
+		.home_position_img {
+			z-index: 1001;
+			position: absolute;
+			top: 55rpx;
+			right: 77rpx;
+			width: 117rpx;
+			height: 76rpx;
+			pointer-events: none;
+		}
 
 		.tab-view {
 			display: flex;
@@ -168,42 +219,43 @@
 				flex: 1;
 				flex-direction: column;
 
-				// background-color: #000000;
+				.second_view_add {
+					border-top: 1px #D2D2D2 solid;
+					background-color: #18BC37;
+				}
+
+
 
 
 			}
 		}
 
 		.home_tabber {
-			z-index: 1011;
+			z-index: 1001;
 			position: fixed;
 
 			.home_tabber_down {
 				position: relative;
 				background-color: #ffffff;
 
-				.tabber_down_checken {
-					width: 66rpx;
-					height: 24rpx;
-					position: absolute;
-					top: 10rpx;
-					left: 8rpx;
+				.tabber_down_img {
 					z-index: 1001;
-					font-size: 9rpx;
-					// background-color: #000000;
+					position: absolute;
+					left: 8rpx;
+					height: 100%;
+					display: flex;
+					align-items: center;
 
-					.input-value {
-						height: 24rpx;
+					.down_img_size {
+						width: 18rpx;
+						height: 18rpx;
 					}
 				}
 
 				.tab-bar {
-					// width: 100%;
 					flex-direction: row;
 
 					.tabber_down_con {
-
-						// margin-left: 123rpx;
 						height: 100%;
 						display: flex;
 						flex-direction: column;
@@ -223,20 +275,17 @@
 								background-color: #118ee9;
 								transition-property: width, left, background-color;
 								transition-duration: 0.3s;
-								// transition-delay: 0.1s;
 								transition-timing-function: ease-in-out;
 							}
 						}
 
 						.down_con_box {
-							// width: 1700rpx;
 							display: flex;
 							flex-direction: row;
 							align-items: center;
 
 							.con_box_add {
 								position: relative;
-								// background-color: #303133;
 							}
 
 							.box_add_num {
@@ -258,7 +307,6 @@
 								// margin: 0 33rpx;
 								font-size: 12rpx;
 								line-height: 12rpx;
-
 								color: #909090;
 							}
 

@@ -22,8 +22,18 @@
 			"style": {
 				"navigationStyle": "custom"
 			}
+		}, {
+			"path": "pages/homePage/homeSecond/homeList",
+			"style": {
+				"navigationStyle": "custom"
+			}
 		},
-
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
 		{
 			"path": "pages/index/index",
 			"style": {
