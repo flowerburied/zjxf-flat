@@ -44,7 +44,7 @@
 		</view>
 
 		<view class="second_view_btn">
-			<view class="view_btn_item add_color">
+			<view class="view_btn_item add_color" @click="openpdf">
 				关闭
 			</view>
 			<view class="view_btn_item">
@@ -128,6 +128,24 @@
 			}
 		},
 		methods: {
+			openpdf() {
+				uni.downloadFile({
+					url: 'http://www.pwithe.com/Public/Upload/download/20170211/589ebf8e5bb13.pdf',
+					success: function(res) {
+						var filePath = res.tempFilePath;
+						uni.openDocument({
+							filePath: filePath,
+							showMenu: true,
+							success: function(res) {
+								console.log('打开文档成功');
+							}
+						});
+					},
+					complete: function(res) {
+						console.log('打开文档', res);
+					}
+				});
+			},
 			closepopup() {
 				console.log("关闭")
 				this.$refs.popup.close()

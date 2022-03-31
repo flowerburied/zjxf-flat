@@ -55,6 +55,7 @@ const store = new Vuex.Store({
 						// publicSecCon: res.windowHeight - uni.upx2px(248) - res.statusBarHeight,
 						// publicSecTop: uni.upx2px(248) + res.statusBarHeight,
 						allList: res,
+						mineCon: res.windowHeight - res.statusBarHeight
 					}
 					console.log("屏幕数据option", option)
 					commit("SET_PHONE_INFO", option)

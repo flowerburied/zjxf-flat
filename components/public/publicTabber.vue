@@ -68,9 +68,10 @@
 	.worldchat-tabber {
 		z-index: 1011;
 		position: fixed;
+		background-color: #FFFFFF;
 
 		.worldchat-tabber-down {
-			background-color: #9E1A31;
+			// background-color: #9E1A31;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;

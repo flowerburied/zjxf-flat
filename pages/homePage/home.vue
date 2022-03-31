@@ -177,6 +177,7 @@
 		.home_tabber {
 			z-index: 1011;
 			position: fixed;
+			background-color: #ffffff;
 
 			.home_tabber_down {
 				position: relative;
