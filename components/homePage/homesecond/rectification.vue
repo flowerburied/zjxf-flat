@@ -10,6 +10,10 @@
 			建设工程消防验收备案抽查记录表
 		</view>
 
+
+		<!-- 	<view class="recti_popup_canvas">
+
+		</view> -->
 		<view class="second_view_box">
 			<myCol>
 				<myRow widthPercentage='2'>23</myRow>
@@ -35,6 +39,8 @@
 
 		</view>
 
+
+
 		<view class="second_view_btn" style="flex-direction: row;">
 			<view class="view_btn_item " @click="open">
 				新增
@@ -44,16 +50,16 @@
 		</view>
 
 		<view class="second_view_btn">
-			<view class="view_btn_item add_color" @click="openpdf">
+			<view class="view_btn_item add_color">
 				关闭
 			</view>
 			<view class="view_btn_item">
 				保存
 			</view>
-			<view class="view_btn_item">
+			<view class="view_btn_item" @click="download">
 				整改
 			</view>
-			<view class="view_btn_item">
+			<view class="view_btn_item" @click="openpdf">
 				打印预览
 			</view>
 
@@ -62,6 +68,8 @@
 
 		<uni-popup ref="popup" type="center">
 			<view class="recti_popup">
+
+
 
 				<view class="recti_popup_first">
 					<view class="popup_first_title">
@@ -127,7 +135,97 @@
 				fileLists: []
 			}
 		},
+
 		methods: {
+
+
+			download() {
+
+
+				var url = "http://www.pwithe.com/Public/Upload/download/20170211/589ebf8e5bb13.pdf"
+				let dtask = plus.downloader.createDownload(url, {
+						//本地路径开头使用file://，跟上手机文件本地目录storage/emulated/0，就是用户文件管理器能看到的了，之后我创建微垠作为文件夹，后缀是用于文件命名和格式修改，大家可以使用变量。
+						filename: "file://storage/emulated/0/zjxf/" + "test.pdf" //利用保存路径，实现下载文件的重命名
+					},
+
+					function(d, status) {
+						console.log("d", d)
+						console.log("status", status)
+						//d为下载的文件对象
+						if (status == 200) {
+
+							//下载成功,d.filename是文件在保存在本地的相对路径，使用下面的API可转为平台绝对路径
+							let fileSaveUrl = plus.io.convertLocalFileSystemURL(d.filename);
+							console.log('fileSaveUrl', fileSaveUrl)
+							plus.runtime.openFile(d.filename); //选择软件打开文件
+						} else {
+							//下载失败
+							plus.downloader.clear(); //清除下载任务
+						}
+					})
+				dtask.start();
+
+
+
+				// uni.downloadFile({
+				// 	url: 'http://www.pwithe.com/Public/Upload/download/20170211/589ebf8e5bb13.pdf', //仅为示例，并非真实的资源
+				// 	success: (res) => {
+				// 		if (res.statusCode === 200) {
+				// 			console.log('下载成功');
+				// 		}
+				// 	}
+				// });
+				const downloadTask = uni.downloadFile({
+					url: 'http://www.pwithe.com/Public/Upload/download/20170211/589ebf8e5bb13.pdf', //仅为示例，并非真实的资源
+					success: (res) => {
+						if (res.statusCode === 200) {
+							console.log('下载成功', res);
+
+							// plus.io.convertLocalFileSystemURL(res.tempFilePath, (ressucc) => {
+							// 	console.log("ressucc", ressucc)
+							// }, (err) => {
+							// 	console.log("err", err)
+							// })
+							const addstrin1 = plus.io.convertLocalFileSystemURL(res
+								.tempFilePath)
+							console.log('保存文件2', addstrin1);
+							uni.saveFile({
+								tempFilePath: addstrin1,
+								success: function(res1) {
+									// var savedFilePath = res.savedFilePath;
+
+									console.log('保存文件', res1);
+									// uni.getSavedFileList({
+									// 	success: function(res2) {
+									// 		console.log('res2.fileList', res2
+									// 			.fileList);
+
+									// 		plus.io.convertLocalFileSystemURL(res2
+									// 			.fileList,
+									// 			(res3) => {
+									// 				console.log('res3', res3);
+									// 			}, (e) => {
+									// 				console.log('e.message', e)
+									// 			}
+									// 		);
+									// 	}
+									// });
+								}
+							});
+						}
+					}
+				});
+				downloadTask.onProgressUpdate((res) => {
+					console.log('下载进度' + res.progress);
+					// console.log('已经下载的数据长度' + res);
+					// console.log('预期需要下载的数据总长度' + res.totalBytesExpectedToWrite);
+
+					// 满足测试条件，取消下载任务。
+					// if (res.progress > 50) {
+					// 	downloadTask.abort();
+					// }
+				});
+			},
 			openpdf() {
 				uni.downloadFile({
 					url: 'http://www.pwithe.com/Public/Upload/download/20170211/589ebf8e5bb13.pdf',
@@ -178,6 +276,8 @@
 			background-color: #ffffff;
 			display: flex;
 			flex-direction: column;
+
+
 
 			.recti_popup_btn {
 				margin-top: 20rpx;
@@ -272,6 +372,13 @@
 				}
 			}
 
+		}
+
+		.recti_popup_canvas {
+			width: 304rpx;
+			height: 304rpx;
+			background-color: #FFFFFF;
+			border: 1rpx solid #e5e5e5;
 		}
 
 

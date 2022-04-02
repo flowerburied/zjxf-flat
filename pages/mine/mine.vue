@@ -25,14 +25,21 @@
 								<image class="box_bao_img" src="@/static/img/public/004.svg"></image>
 							</view>
 							<view class="other_box_bao">
-								<text class="box_bao_text">个人信息</text>
+								<text class="box_bao_text">系统设置</text>
 								<image class="box_bao_img" src="@/static/img/public/004.svg"></image>
 							</view>
 						</view>
-
+						<view class="view_other_canvas">
+							<drawing-board @touchmove222="touchmove222" ref="drawingBoard" canvasWidth="300rpx">
+							</drawing-board>
+						</view>
 						<view class="view_other_btn" @click="outsign">
 							退出登录
 						</view>
+
+
+
+
 					</view>
 				</view>
 
@@ -43,8 +50,19 @@
 </template>
 
 <script>
+	import drawingBoard from "@/components/qiao-drawingBoard/drawingBoard.vue"
+
 	export default {
+
+		components: {
+			drawingBoard
+		},
+
 		methods: {
+
+			touchmove222() {
+				console.log("hual")
+			},
 			outsign() {
 				uni.reLaunch({
 					url: '/pages/login/signin'
@@ -92,6 +110,12 @@
 						line-height: 150%;
 						padding: 8rpx 90rpx;
 						background-color: #118ee9;
+					}
+
+					.view_other_canvas {
+						width: 300rpx;
+						height: 300rpx;
+						background-color: #FFFFFF;
 					}
 
 					.view_other_box {

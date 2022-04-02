@@ -26,9 +26,8 @@
 						操作
 					</view>
 				</view>
-
 			</view>
-			<view class="content_box_item">
+			<view class="content_box_item" @click="tolist">
 				1234
 			</view>
 			<view class="content_box_item">

@@ -45,10 +45,11 @@
 					<scroll-view :style="{height:$store.state.phoneInfo.publicCon+'px'}" scroll-y="true"
 						class="scroll-Y">
 						<homeContent></homeContent>
+						<SecurityBox></SecurityBox>
 					</scroll-view>
 				</swiper-item>
 			</swiper>
-			<SecurityBox></SecurityBox>
+
 		</publicContent>
 	</view>
 </template>

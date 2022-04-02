@@ -43,11 +43,11 @@
 
 						<rectiFrom></rectiFrom>
 
-
+						<SecurityBox></SecurityBox>
 					</scroll-view>
 				</swiper-item>
 			</swiper>
-			<SecurityBox></SecurityBox>
+
 		</publicContent>
 	</view>
 </template>
@@ -175,7 +175,8 @@
 		.home_tabber {
 			z-index: 1011;
 			position: fixed;
-	background-color: #ffffff;
+			background-color: #ffffff;
+
 			.home_tabber_down {
 				position: relative;
 				background-color: #ffffff;
